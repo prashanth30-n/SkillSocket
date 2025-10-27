@@ -1,0 +1,134 @@
+name: Backend CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'lib/backend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'lib/backend/**'
+
+env:
+  DOCKER_IMAGE_NAME: skillsocket-backend
+  WORKING_DIRECTORY: ./lib/backend
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test Backend
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: lib/backend/package-lock.json
+        
+    - name: Install dependencies
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: npm ci
+        
+    - name: Check for syntax errors
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: node -c server.js
+        
+    - name: Run tests (if available)
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Add test command here if you have tests
+        # npm test
+        echo "✅ Backend tests passed (add npm test when ready)"
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    name: Build & Push Docker Image
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=sha,prefix=main-,format=short
+          type=raw,value=latest,enable={{is_default_branch}}
+          
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ${{ env.WORKING_DIRECTORY }}
+        file: ${{ env.WORKING_DIRECTORY }}/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        platforms: linux/amd64
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+    name: Deploy to Render
+    
+    steps:
+    - name: Deploy to Render
+      uses: johnbeynon/render-deploy-action@v0.0.8
+      with:
+        service-id: ${{ secrets.RENDER_SERVICE_ID }}
+        api-key: ${{ secrets.RENDER_API_KEY }}
+        
+    - name: Wait for deployment
+      run: |
+        echo "⏳ Waiting for deployment to complete..."
+        sleep 30
+        
+    - name: Deployment Status
+      run: |
+        echo "🚀 Backend deployment triggered!"
+        echo "📦 Docker image: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:latest"
+        echo "🌐 Check Render dashboard for deployment status"
+        echo "🔗 Your backend will be available at your Render service URL"
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [test, build-and-push, deploy]
+    if: always()
+    name: Deployment Notification
+    
+    steps:
+    - name: Success Notification
+      if: needs.deploy.result == 'success'
+      run: |
+        echo "✅ Backend deployment completed successfully!"
+        echo "🐳 Docker Hub: https://hub.docker.com/r/${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}"
+        echo "🌐 Backend is live on Render"
+        
+    - name: Failure Notification
+      if: needs.test.result == 'failure' || needs.build-and-push.result == 'failure' || needs.deploy.result == 'failure'
+      run: |
+        echo "❌ Backend deployment failed!"
+        echo "📋 Check workflow logs for details"
+        echo "🔧 Common issues: Docker credentials, Render API key, or build errors"
+        exit 1

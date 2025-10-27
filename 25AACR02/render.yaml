@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: skillsocket-backend
+    env: node
+    region: oregon
+    plan: free
+    rootDir: lib/backend
+    buildCommand: npm ci --production
+    startCommand: npm start
+    healthCheckPath: /ping
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Add these manually in Render dashboard - DO NOT commit real values
+      - key: MONGODB_URI
+        sync: false # Set this in Render dashboard manually
+      - key: JWT_SECRET
+        sync: false # Set this in Render dashboard manually
+      # Optional Cloudinary vars - set in Render dashboard if using
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      # Optional Firebase vars - set in Render dashboard if using
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false

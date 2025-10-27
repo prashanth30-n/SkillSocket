@@ -1,0 +1,51 @@
+name: barter_system
+description: A new Flutter project.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  http: ^1.0.0
+  shared_preferences: ^2.0.0
+  url_launcher: ^6.0.0
+  table_calendar: ^3.0.0
+  share_plus: ^7.0.0
+  pie_chart: ^5.0.0
+  image_picker: ^1.0.0
+  intl: ^0.19.0
+  socket_io_client: ^2.0.3+1
+  swipable_stack: ^2.0.0
+  
+  flutter_local_notifications: ^17.2.3
+  firebase_core: ^2.15.0
+  firebase_messaging: ^14.6.5
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logo.png
+    - assets/logo1.png
+    - assets/logo2.png
+    - assets/logo3.png
+    - assets/skillsocket.jpg
+    - assets/splashscreen.jpg
+    - assets/studyroom.jpg
+    - assets/profile.jpg
+    - assets/chatbot.jpg
+    - assets/home.jpg
+    - assets/community.jpg
+    - assets/chats.jpg
+    - assets/new-chatbot-skyblue.png
