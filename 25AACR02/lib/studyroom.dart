@@ -5,7 +5,6 @@ import 'package:barter_system/reviews.dart';
 import 'package:barter_system/history.dart';
 import 'package:barter_system/login.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:barter_system/services/user_service.dart'; // ✅ Added for fetching user data
 
 class StudyRoom extends StatefulWidget {
   @override
@@ -15,28 +14,6 @@ class StudyRoom extends StatefulWidget {
 class _StudyRoomState extends State<StudyRoom> {
   List<String> roomNames = ["Python", "Flutter", "English"];
   String searchQuery = "";
-  String? _profileImageUrl; // ✅ added for profile image
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchProfileImage();
-  }
-
-  Future<void> _fetchProfileImage() async {
-    try {
-      final userData = await UserService.getUserProfile(); // ✅ Adjust if needed
-      if (userData != null &&
-          userData['profileImage'] != null &&
-          userData['profileImage'].toString().isNotEmpty) {
-        setState(() {
-          _profileImageUrl = userData['profileImage'];
-        });
-      }
-    } catch (e) {
-      print('Error fetching profile image: $e');
-    }
-  }
 
   Future<void> _launchExternal(Uri uri) async {
     final bool launched = await launchUrl(
@@ -55,6 +32,9 @@ class _StudyRoomState extends State<StudyRoom> {
     await _launchExternal(Uri.parse('https://meet.google.com/new'));
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     List<String> filteredRooms = roomNames
@@ -68,26 +48,30 @@ class _StudyRoomState extends State<StudyRoom> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'SkillSocket',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 39,
-                            fontWeight: FontWeight.bold),
-                      ),
+                child: Row(
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'SkillSocket',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 39),
                     ),
                   ),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )),
             ListTile(
-              leading: Icon(Icons.history, color: Colors.white),
-              title: Text('History', style: TextStyle(color: Colors.white)),
+              leading: Icon(
+                Icons.history,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              title: Text(
+                'History',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context,
@@ -96,8 +80,14 @@ class _StudyRoomState extends State<StudyRoom> {
             ),
             Divider(color: Colors.white, thickness: 1),
             ListTile(
-              leading: Icon(Icons.reviews, color: Colors.white),
-              title: Text('Reviews', style: TextStyle(color: Colors.white)),
+              leading: Icon(
+                Icons.reviews,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              title: Text(
+                'Reviews',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context,
@@ -106,14 +96,19 @@ class _StudyRoomState extends State<StudyRoom> {
             ),
             Divider(color: Colors.white, thickness: 1),
             ListTile(
-              leading: Icon(Icons.logout, color: Colors.white),
-              title: Text('Sign Out', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              },
-            ),
+                leading: Icon(
+                  Icons.logout,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+                title: Text(
+                  'Sign Out',
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }),
             Divider(color: Colors.white, thickness: 1),
           ],
         ),
@@ -124,35 +119,32 @@ class _StudyRoomState extends State<StudyRoom> {
         title: Text(
           'SkillSocket',
           style: TextStyle(
-              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
+              fontSize: 20,
+              //fontStyle: FontStyle.italic,
+              color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        backgroundColor: const Color(0xFF123b53),
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor:Color(0xFF123b53),
+        iconTheme:
+            IconThemeData(color: const Color.fromARGB(255, 255, 255, 255)),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Notifications()));
-            },
-            icon: const Icon(Icons.notifications),
-          ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Notifications()));
+              },
+              icon: Icon(Icons.notifications)),
           IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Profile()));
-            },
-            icon: _profileImageUrl != null
-                ? CircleAvatar(
-                    backgroundImage: NetworkImage(_profileImageUrl!),
-                    radius: 14,
-                  )
-                : const Icon(Icons.person_rounded),
-          ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              },
+              icon: Icon(Icons.person_rounded)),
         ],
       ),
-      body: Column(
+      body: 
+      Column(
         children: [
-          // Search bar
+          // Search bar at the top
           Container(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -164,8 +156,8 @@ class _StudyRoomState extends State<StudyRoom> {
               decoration: InputDecoration(
                 hintText: "Join a room",
                 filled: true,
-                fillColor: const Color(0xFF66B7D2),
-                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                fillColor: Color(0xFF66B7D2),
+                prefixIcon: const Icon(Icons.search, color: Colors.white ),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 hintStyle: const TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
@@ -173,28 +165,28 @@ class _StudyRoomState extends State<StudyRoom> {
                   borderSide: BorderSide.none,
                 ),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color:  Colors.white ),
             ),
           ),
-          // Room list
+          // Rest of the content with padding
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
-                    ),
-                    child: const ListTile(
-                      leading: Icon(Icons.headphones,
-                          size: 40, color: Color(0xFF123b53)),
-                      title: Text("StudyBuddy",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text("Make friends to study with"),
-                    ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+              ),
+              child: const ListTile(
+                leading:
+                    Icon(Icons.headphones, size: 40, color: Color(0xFF123b53)),
+                title: Text("StudyBuddy",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text("Make friends to study with"),
+              ),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -211,17 +203,21 @@ class _StudyRoomState extends State<StudyRoom> {
                               BoxShadow(
                                 color: Colors.grey.shade400,
                                 blurRadius: 4,
-                                offset: const Offset(2, 2),
+                                offset: Offset(2, 2),
                               ),
                             ],
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(filteredRooms[index],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(filteredRooms[index],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
                               ElevatedButton(
                                 onPressed: () async {
                                   await _startNewMeet();
@@ -231,8 +227,10 @@ class _StudyRoomState extends State<StudyRoom> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
-                                child: const Text("Join",
-                                    style: TextStyle(color: Colors.white)),
+                                child: const Text(
+                                  "Join",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           ),
@@ -243,19 +241,26 @@ class _StudyRoomState extends State<StudyRoom> {
                 ],
               ),
             ),
-          ),
+            )
         ],
-      ),
+        ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _showCreateRoomDialog();
+          _showCreateRoomDialog(); // directly show dialog in center
         },
-        label: const Text("Create", style: TextStyle(color: Colors.white)),
-        icon: const Icon(Icons.add, color: Colors.white),
+        label: const Text(
+          "Create",
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xFF123b53),
       ),
     );
   }
+
 
   void _showCreateRoomDialog() {
     TextEditingController _controller = TextEditingController();
@@ -280,6 +285,7 @@ class _StudyRoomState extends State<StudyRoom> {
                     roomNames.add(_controller.text.trim());
                   });
                   Navigator.pop(context);
+                  // Open a new meeting after creating the room
                   await _startNewMeet();
                 }
               },

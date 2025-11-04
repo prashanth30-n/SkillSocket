@@ -6,3 +6,4 @@ const MessageSchema = new mongoose.Schema({
   seen: { type: Boolean, default: false }
 }, { timestamps: true });
 module.exports = mongoose.model('Message', MessageSchema);
+//this is for the message schema  

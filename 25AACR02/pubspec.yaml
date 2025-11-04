@@ -21,16 +21,21 @@ dependencies:
   intl: ^0.19.0
   socket_io_client: ^2.0.3+1
   swipable_stack: ^2.0.0
-  
+
   flutter_local_notifications: ^17.2.3
   firebase_core: ^2.15.0
   firebase_messaging: ^14.6.5
-  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/skillsocket.jpg"
 
 flutter:
   uses-material-design: true
