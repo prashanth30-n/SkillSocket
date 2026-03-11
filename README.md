@@ -82,12 +82,12 @@ flutter run
 
 ## Preview 
 <div style="display: flex; align-items: center;"> 
-<img src="assets/splashscreen.jpg" width="300"> 
-<img src="assets/home.jpg" width="300"> 
-<img src="assets/chatbot.jpg" width="300"> 
-<img src="assets/chats.jpg" width="300"> 
-<img src="assets/community.jpg" width="300"> 
-<img src="assets/studyroom.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fsplashscreen.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fhome.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fchatbot.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fchats.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fcommunity.jpg" width="300"> 
+<img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fstudyroom.jpg" width="300"> 
 <img src="assets/profile.jpg" width="300"> 
 </div>
 
