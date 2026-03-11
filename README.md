@@ -1,6 +1,6 @@
 # SkillSocket  
 <div style="display: flex; align-items: center;"> 
-  <img src="![matchmaking jpg](https://github.com/user-attachments/assets/b24f4b8e-64d5-4045-bb2e-163cf06dfc2a)
+  <img src="![skillsocket jpg](https://github.com/user-attachments/assets/5eb40116-c20b-47c0-94c7-09d16660648b)
 " alt="icon" style="height:100px;width:100px;"> 
 </div>  
 
