@@ -88,7 +88,8 @@ flutter run
 <img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fchats.jpg" width="300"> 
 <img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fcommunity.jpg" width="300"> 
 <img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fstudyroom.jpg" width="300"> 
-<img src="assets/profile.jpg" width="300"> 
+<img src="![matchmaking jpg](https://github.com/user-attachments/assets/f1b26178-c00b-49f2-a740-10af96c956b4)
+" width="300"> 
 </div>
 
 ---
