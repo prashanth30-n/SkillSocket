@@ -1,6 +1,6 @@
 # SkillSocket  
 <div style="display: flex; align-items: center;"> 
-  <img src="assets/skillsocket.jpg" alt="icon" style="height:100px;width:100px;"> 
+  <img src="https://github.com/prashanth30-n/SkillSocket_AAC/blob/main/assets%2Fskillsocket.jpg" alt="icon" style="height:100px;width:100px;"> 
 </div>  
 
 ---
