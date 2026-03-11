@@ -95,29 +95,7 @@ flutter run
 
 ---
 
-## Team Details  
-<b>Team Number:</b>  
-25AACR02    
 
-<b>Senior Mentor:</b>  
-Vitesh   
-
-<b>Junior Mentor:</b>  
-Prajith   
-
-<b>Team Member 1:</b>  
-K. Anvika  
-
-<b>Team Member 2:</b>  
-Nakirekanti Prashanth
-
-<b>Team Member 3:</b>  
-Jarugula Sri Sanjana
-
-<b>Team Member 4:</b>  
-Ghulam Sahir Ansari
-
----
 
 ## Contribution
 **This section provides instructions and details on how to submit a contribution via a pull request. It is important to follow these guidelines to make sure your pull request is accepted.**
